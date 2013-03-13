@@ -45,7 +45,7 @@ class TodoList
     if index < 0 or index > @list.size - 1
       raise IllegalArrayIndex
     end
-    @list.at(index)
+    @list[index]
   end
   
   def get_completed
@@ -87,7 +87,7 @@ class TodoList
   end
 
   def change_description (index, description = '')
-    @list.at(index).description = description
+    @list[index].description = description
   end
 
   def to_s
