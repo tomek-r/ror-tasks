@@ -5,10 +5,6 @@ class Item
 	  @description = description
 	  @completed = false
   end
-
-  def complete 
-    @completed = true
-  end
   
   def to_s
     @description

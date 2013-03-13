@@ -56,7 +56,10 @@ class TodoList
     @list.select { |item| !item.completed }
   end
 
-  def toggle_completed (index)
+  def toggle (index)
+    if index < 0 or index > @list.size - 1
+      raise IllegalArrayIndex
+    end
     @list[index].completed = !@list[index].completed
   end
   
@@ -72,7 +75,7 @@ class TodoList
   end
 
   def revert (one = nil, two = nil)
-    if !one.nil? and !two.nil?
+    if !one.nil? or !two.nil?
       if one < 0 or one > @list.size - 1 or two < 0 or two > @list.size - 1 or two == one 
         raise IllegalArrayIndex
       end
@@ -82,8 +85,8 @@ class TodoList
     end
   end
 
-  def sort ()
-    @list.sort_by! { |item| item.description }
+  def sort
+    @list.sort_by! { |item| item.description.downcase }
   end
 
   def change_description (index, description = '')
@@ -101,7 +104,7 @@ class TodoList
       else
         x = ' '
       end
-      text += "[%s] %s\n" % [x, item.description]
+      text += "- [%s] %s\n" % [x, item.description]
     end
     text
   end

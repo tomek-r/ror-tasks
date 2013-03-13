@@ -6,9 +6,9 @@ require_relative '../lib/exceptions'
 
 
 print_style = <<END
-[x] Buy toilet paper
-[ ] Wash a car
-[ ] Learn to fly
+- [x] Buy toilet paper
+- [ ] Wash a car
+- [ ] Learn to fly
 END
 
 describe Item do
@@ -23,9 +23,6 @@ describe Item do
     item.completed.should be_false
   end
 
-  it "should change state to completed" do
-    item.complete().should be_true
-  end
 end
 
 describe TodoList do
@@ -98,7 +95,7 @@ describe TodoList do
 
     it "should toggle the state of item" do
       list.complete(0)
-      list.toggle_completed(0)
+      list.toggle(0)
       list.completed?(0).should be_false
     end
 
@@ -180,7 +177,7 @@ describe TodoList do
       list.get(2).to_s.should == item_second_description
     end
 
-    it "should return all items using following format -> [x] - completed item, [ ] uncompleted item" do
+    it "should return all items using following format -> - [x] completed item, - [ ] uncompleted item" do
       list.complete(0)
       list.to_s.should == print_style
     end
