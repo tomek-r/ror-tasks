@@ -61,7 +61,7 @@ class TodoList
   end
   
   def remove (index)
-    if index < 0 or index > @list.size
+    if index < 0 or index > @list.size - 1
       raise IllegalArrayIndex
     end
     @list.delete_at(index) if index
@@ -82,11 +82,14 @@ class TodoList
     end
   end
 
-  def sort (field = 'description')
+  def sort ()
     @list.sort_by! { |item| item.description }
   end
 
   def change_description (index, description = '')
+    if index < 0 or index > @list.size - 1
+      raise IllegalArrayIndex
+    end
     @list[index].description = description
   end
 

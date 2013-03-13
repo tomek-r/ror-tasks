@@ -65,8 +65,12 @@ describe TodoList do
 
     it { should_not be_empty }
 
-    it "should raise an exception when passing non existing index" do
+    it "should raise an exception when getting non existing item" do
       expect { list.get(1) }.to raise_error(IllegalArrayIndex)
+    end
+
+    it "should raise an exception when removing non existing item" do
+      expect { list.remove(1) }.to raise_error(IllegalArrayIndex)
     end
 
     it "should have size of 1" do
@@ -152,7 +156,7 @@ describe TodoList do
       list.size.should == 3
     end
 
-    it "should raise an exception when passing non existing index" do
+    it "should raise an exception when reverting item which doesn't exist" do
       expect { list.revert 2, 3 }.to raise_error(IllegalArrayIndex)
     end
 
