@@ -11,20 +11,6 @@ print_style = <<END
 - [ ] Learn to fly
 END
 
-describe Item do
-  subject(:item)                   { Item.new(item_description) }
-  let(:item_description)           { "Buy toilet paper" }
-
-  it "should have the description \"Buy toilet paper\"" do
-    item.to_s.should == item_description
-  end
-
-  it "should be uncompleted " do
-    item.completed.should be_false
-  end
-
-end
-
 describe TodoList do
   subject(:list)                   { TodoList.new(items) }
   let(:items)                      { [] }
@@ -63,7 +49,7 @@ describe TodoList do
     it { should_not be_empty }
 
     it "should raise an exception when getting non existing item" do
-      expect { list.get(1) }.to raise_error(IllegalArrayIndex)
+      expect { list[1] }.to raise_error(IllegalArrayIndex)
     end
 
     it "should raise an exception when removing non existing item" do
@@ -101,11 +87,11 @@ describe TodoList do
 
     it "should change description of item" do
       list.change_description(0, 'Go to disco')
-      list.get(0).to_s.should == 'Go to disco'
+      list[0].to_s.should == 'Go to disco'
     end
 
     it "should get the item at index" do
-      list.get(0).to_s.should == item_description
+      list[0].to_s.should == item_description
     end
 
   end
@@ -141,8 +127,8 @@ describe TodoList do
 
     it "should revert order of two items" do
       list.revert(0, 1)
-      list.get(0).to_s.should == item_second_description
-      list.get(1).to_s.should == item_description
+      list[0].to_s.should == item_second_description
+      list[1].to_s.should == item_description
     end
   end
 
@@ -159,22 +145,22 @@ describe TodoList do
 
     it "should revert order of two items" do
       list.revert 1, 2
-      list.get(1).to_s.should == item_third_description
-      list.get(2).to_s.should == item_second_description
+      list[1].to_s.should == item_third_description
+      list[2].to_s.should == item_second_description
     end
 
     it "should revert order of all items" do
       list.revert
-      list.get(0).to_s.should == item_third_description
-      list.get(1).to_s.should == item_second_description
-      list.get(2).to_s.should == item_description
+      list[0].to_s.should == item_third_description
+      list[1].to_s.should == item_second_description
+      list[2].to_s.should == item_description
     end
 
     it "should sort item by name" do
       list.sort
-      list.get(0).to_s.should == item_description
-      list.get(1).to_s.should == item_third_description
-      list.get(2).to_s.should == item_second_description
+      list[0].to_s.should == item_description
+      list[1].to_s.should == item_third_description
+      list[2].to_s.should == item_second_description
     end
 
     it "should return all items using following format -> - [x] completed item, - [ ] uncompleted item" do
