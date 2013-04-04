@@ -125,7 +125,7 @@ describe TodoList do
 
     it "should notify social network if an item is added" do
       stub(database).add_todo_item(item) { true }
-      mock(social_network).notify { true }
+      mock(social_network).notify(item) { true }
 
       list << item
     end
@@ -133,7 +133,7 @@ describe TodoList do
     it "should notify social network if an item is completed" do
       stub(database).get_todo_item(0) { item }
       mock(database).complete_todo_item(item,true) { true }
-      mock(social_network).notify { true }
+      mock(social_network).notify(item) { true }
 
       list.toggle_state(0)
     end
@@ -153,7 +153,7 @@ describe TodoList do
       
       it "should notify social network if the body of item is missing" do
         mock(database).add_todo_item(without_description) { true }
-        mock(social_network).notify { true }
+        mock(social_network).notify(without_description) { true }
 
         list << without_description
       end
@@ -164,7 +164,7 @@ describe TodoList do
       
       it "should truncate the title to 255 chars when adding item" do
         stub(database).add_todo_item(item) { item }
-        mock(social_network).notify { true }
+        mock(social_network).notify(item) { true }
 
         item.title.size.should == 256
         list << item
@@ -174,7 +174,7 @@ describe TodoList do
       it "should truncate the title to 255 chars when completing item" do
         stub(database).get_todo_item(0) { item }
         mock(database).complete_todo_item(item,true) { true }
-        mock(social_network).notify { true }
+        mock(social_network).notify(item) { true }
 
         item.title.size.should == 256
         list.toggle_state(0)

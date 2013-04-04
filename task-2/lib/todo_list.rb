@@ -19,7 +19,7 @@ class TodoList
   	if !item.nil? and defined?(item.title) and item.title.size > 4
   		item.title = truncate_string(item.title)
   		@db.add_todo_item(item)
-  		self.notify
+  		self.notify(item)
   	end
   end
 
@@ -37,12 +37,12 @@ class TodoList
   	item.title = truncate_string(item.title)
   	@db.complete_todo_item(item, !item.complete)
   	if !item.complete 
-  		self.notify
+  		self.notify(item)
   	end
   end
 
-  def notify
-  	@network.notify if @network
+  def notify (item)
+  	@network.notify(item) if @network
   end
 
   def truncate_string(string)
