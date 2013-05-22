@@ -35,7 +35,7 @@ describe "virtual wallet" do
         set_wallet_money :euro => 100
         set_user_stock :alior => 2
         set_stock_price 100, :euro, :alior
-        sell_user_stock :alior => 1
+        sell_user_stock :alior => 1, :euro
         get_wallet_money(:euro).should == 200
         get_user_stock(:alior).should == 1
     end

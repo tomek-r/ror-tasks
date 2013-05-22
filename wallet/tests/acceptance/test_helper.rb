@@ -12,7 +12,7 @@ module WalletHelper
         account = find_account(currency)
         @wallets ||= []
         if account.check_balance(value)
-            @wallets << Wallet.new(currency, value)
+            @wallets << WalletMoney.new(currency, value)
             account.substract_money_value(value)
         end
     end
@@ -41,9 +41,8 @@ module WalletHelper
     end
 
     def convert_user_money(currency_from, currency_to)
-        @converter ||= MoneyConverter.new
-        account = find_account(currency_from)
-        @converter.convert_money(currency_to, account, find_rate(currency_from, currency_to))
+        @converter ||= MoneyConverter.new(find_account(currency_from), find_account(currency_to), @rates)
+        @converter.convert_money()
     end
 
     def set_stock_price(price, currency, stock)
