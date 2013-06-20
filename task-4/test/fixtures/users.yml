@@ -1,0 +1,28 @@
+user_1:
+ id: 1
+ name: "Tomek"
+ surname: "Nowak"
+ email: "test@test.pl"
+ password: "bb31fbff8fac91c17ee6052d98084e6e63184859"#tralala
+ failed_login_count: 3
+user_2:
+ id: 2
+ name: "Kasia"
+ surname: "Kowalska"
+ email: "kasiak@gmail.com"
+ password: "7288edd0fc3ffcbe93a0cf06e3568e28521687bc"#test123
+ failed_login_count: 1
+user_3:
+ id: 3
+ name: "Piotr"
+ surname: "Wilk"
+ email: "wilku@wilki.pl"
+ password: "ac45a2045d69c6bbba4ede3cd242c45401dc6279"#wilki
+ failed_login_count: 3
+user_4:
+ id: 4
+ name: "Jacek"
+ surname: "Mak"
+ email: "jacek@jacek.pl"
+ password: "ac45a2045d69c6bbba4ede3cd242c45401dc6279"#wilki
+ failed_login_count: 4

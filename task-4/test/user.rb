@@ -58,6 +58,15 @@ describe User do
     it { should_not be_valid }
   end
   
+  context "encrypted password" do
+    let(:encrypted_password) { '3e43da855bd89d410bc607e26a6780d8f387da49' }
+
+    it "should encrypt password" do
+      user.save
+      user.password.should == encrypted_password
+    end
+  end
+  
   context "with wrong password confirmation" do
     let(:password_confirmation) { "lato123" }
     it { should_not be_valid }
@@ -72,5 +81,34 @@ describe User do
     let(:failed_login_count) { '' }
     it { should_not be_valid }
   end
+  
+  context "DB tests" do
+   it "should find user by surname" do
+    user = User.find_by_surname('Nowak')
+    user.surname.should == 'Nowak'
+   end
 
+   it "should find user by email" do
+     user = User.find_by_email('test@test.pl')
+     user.email.should == 'test@test.pl'
+   end
+   
+   it "should authenticate user" do
+     User.authenticate('test@test.pl', 'tralala').should == true  
+   end
+
+   it "should find user with more than 2 failed login counts" do
+     user = User.find_suspicious_users
+     user.size.should == 3
+   end
+    
+   it "should group users by failed login count" do
+    users = User.group_suspicious_users
+    users.keys()[0].should == 3
+    users.keys()[1].should == 4
+
+    users[3].size.should == 2
+    users[4].size.should == 1
+   end
+  end
 end

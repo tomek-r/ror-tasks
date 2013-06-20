@@ -1,4 +1,5 @@
 require 'active_record'
+require_relative 'util/util'
 
 class User < ActiveRecord::Base
   attr_accessor :terms_of_service
@@ -16,6 +17,42 @@ class User < ActiveRecord::Base
   validates :terms_of_service, :acceptance => true
   validates :password, :length => { :minimum => 10 }, :confirmation => true
   validates :password_confirmation, :length => { :minimum => 10 }
-  validates :failed_login_count, :numericality => { :only_integer => true }
+  validates :failed_login_count, :numericality => { :only_integer => true } 
+  before_save :encrypt_password
 
+  private 
+  def encrypt_password
+    self.password = Util.encrypt(self.password)
+  end
+  
+  def self.find_by_email(email)
+    where('email = ?', email).first
+  end
+
+  def self.find_by_surname(surname)
+    where('surname = ?', surname).first
+  end
+
+  def self.authenticate(email, password)
+    user = self.find_by_email(email)
+    if (user != nil)
+         return true if user.password == Util.encrypt(password)
+         self.increase_failed_login_count(user)
+    end
+    return false
+  end
+  
+  def self.find_suspicious_users
+    where('failed_login_count > 2')
+  end
+
+  def self.group_suspicious_users()
+    users = self.find_suspicious_users
+    users.group_by{ |u| u.failed_login_count }
+  end
+  
+  protected
+  def self.increase_failed_login_count(user)
+   user.update_attribute(:failed_login_count, user.failed_login_count += 1)
+  end
 end

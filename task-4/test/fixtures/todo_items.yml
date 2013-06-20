@@ -1,0 +1,18 @@
+item_1:
+ id: 1
+ title: "Napisać grę"
+ todo_list_id: 1
+ date_due: "12/06/2013"
+ description: "Przeglądarkową!"
+item_2:
+ id: 2
+ title: "Odrobić lekcje"
+ todo_list_id: 1
+ date_due: "2013-07-01 00:00:00"
+ description: "matematyka"
+item_3:
+ id: 3
+ title: "Zagrać w piłkę"
+ todo_list_id: 3
+ date_due: "23/06/2013"
+ description: "piłka"
